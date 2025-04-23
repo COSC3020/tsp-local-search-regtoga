@@ -10,16 +10,23 @@ function tsp_ls(distance_matrix) {
     //current best route
     cbr = og_route;
 
-    for (var i = 0; i < og_route.length; i++){
-        for (var j = 0; j < og_route.length; j++){
-            var route = two_opt_swap(og_route, i, j);
+    var getting_better_counter = 0;
+    while (getting_better_counter < 10){
+        
+        for (var i = 0; i < og_route.length - 1; i++) {
+            for (var j = i + 1; j < og_route.length; j++) {
+                og_route = two_opt_swap(og_route, i, j);
+        
+                var time_of_route = route_time(og_route, distance_matrix);
 
-            var time_of_route = route_time(route, distance_matrix);
-            if (time_of_route < cbt){
-                cbt = time_of_route
-                cbr = route;
+                if (time_of_route < cbt) {
+                    cbt = time_of_route;
+                    cbr = og_route;
+                    getting_better_counter = 0;
+                }
             }
         }
+        getting_better_counter += 1;
     }
     return cbt;
 }
@@ -55,17 +62,16 @@ function route_time(og_route, distance_matrix){
 
 //For example, if I call the above function with og_route A--B--C--D--E--F, $i=2$,
 //$k=4$, the resulting og_route is A--B--E--D--C--F.
-function two_opt_swap(og_route, i, k){
-    var temp = og_route[i];
-    og_route[i] = og_route[k];
-    og_route[k] = temp;
-
-    return og_route;
+//previous attempt only swaped them and not the whole slice.
+function two_opt_swap(route, i, k) {
+    // Create a copy of the route
+    var new_route = route.slice();
+    while (i < k) {
+        var temp = new_route[i];
+        new_route[i] = new_route[k];
+        new_route[k] = temp;
+        i += 1;
+        k -= 1;
+    }
+    return new_route;
 }
-
-dm = [[0,3,4,2,7],
-      [3,0,4,6,3],
-      [4,4,0,5,8],
-      [2,6,5,0,6],
-      [7,3,8,6,0]];
-//console.log(tsp_ls(dm));
