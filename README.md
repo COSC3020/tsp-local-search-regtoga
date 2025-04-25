@@ -57,12 +57,12 @@ step 2, get the route's value and set it as current best route.
 |v| runtime as we only have 1 loop that runs though the route's length, which is the length of the adj matrix.
 
 step 3, make a new route and test it, if the value is less than the current best route then we havent found the minimum route yet so we need to make shure to continue searching.
-while loop runs untill we stop finding better solutions per iteration. each iteration has a complexity of |v|^3 because of the two nested for loops being |v| * |v|. Inside the inner forloop are two function calls that are each in the worst case |v|. so we get $|v| * |v| * (|v| + |v|) \in |v|^3$
-If there is a way to actuall find how many times the while loop runs it would be some number x (being the number of iterations required to collapse on a smallest number), this is atleast 10, but at most the (cbt = current best time) $\sum_{i=1}^{cbt} i + 1 
+while loop runs untill we stop finding better solutions per iteration. each iteration has a complexity of |v|^3 because of the two nested for loops being |v| * |v|. Inside the inner forloop are two function calls that are each in the worst case |v|. so we get $|v| * |v| * |v| * (|v| + |v|) \in |v|^4$
 
-The reason i had 10 was because it passed all the tests with 10 and i didnt change it. if my method of making new paths was actually conclusive I would have it do more... but its a really terrible method of trying to search different paths, it even re-does paths and re-tests paths that have allready been clasified as bad. so at one point i did try really big numbers to see if my results would improve... and they didnt so anything works with a emphasis on larger number roughly equals somewhat of better results.
 
-so in conclusion the runtime is $|v| + |v| + x(|v| * |v| * (|v| + |v|)) \in \theta |v|^3$
+I changed the while loop to a forloop to achieve the same thing, but easly analyzable.
+
+so in conclusion the runtime is $|v| + |v| + (|v| * |v| * |v| * (|v| + |v|)) \in \theta |v|^4$
 
 
 for memory complexity is is just n because im not storing any real information. biggest variable is the input. so ig $\in \theta |v|$
