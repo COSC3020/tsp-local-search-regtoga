@@ -50,3 +50,21 @@ Test your new function; I've provided some basic testing code in `code.test.js`.
 What is the worst-case asymptotic time complexity of your implementation? What
 is the worst-case asymptotic memory complexity? Add your answer, including your
 reasoning, to this markdown file.
+
+step 1, run though the matrix's length and create a starting list of cities. |v| runtime
+
+step 2, get the route's value and set it as current best route.
+|v| runtime as we only have 1 loop that runs though the route's length, which is the length of the adj matrix.
+
+step 3, make a new route and test it, if the value is less than the current best route then we havent found the minimum route yet so we need to make shure to continue searching.
+while loop runs untill we stop finding better solutions per iteration. each iteration has a complexity of |v|^3 because of the two nested for loops being |v| * |v|. Inside the inner forloop are two function calls that are each in the worst case |v|. so we get $|v| * |v| * |v| * (|v| + |v|) \in |v|^4$
+
+
+I changed the while loop to a forloop to achieve the same thing, but easly analyzable.
+
+so in conclusion the runtime is $|v| + |v| + (|v| * |v| * |v| * (|v| + |v|)) \in \theta |v|^4$
+
+
+for memory complexity is is just n because im not storing any real information, so its just n. $\in \theta n$
+
+I certify that I have listed all sources used to complete this exercise, including the use of any Large Language Models. All of the work is my own, except where stated otherwise. I am aware that plagiarism carries severe penalties and that if plagiarism is suspected, charges may be filed against me without prior notice.
